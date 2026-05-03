@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OlyLife Tera P90 — Aktifkan Kembali Kemampuan Alami Tubuhmu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:    #0B7B6F;
+    --teal-mid:#0E9F8F;
+    --teal-lt: #B8E8E2;
+    --dark:    #0A1512;
+    --charcoal:#162220;
+    --warm:    #F6F3EE;
+    --white:   #FFFFFF;
+    --text:    #1C2B28;
+    --muted:   #4A6560;   /* was #6B8A85 — darkened for contrast */
+    --gold:    #C4973A;
+    --gold-lt: #E8D5A8;
+
+    /* Accessibility: on-dark text colors with min 4.5:1 contrast */
+    --on-dark-body:   #C8DDD9;   /* replaces rgba(255,255,255,.45-.55) */
+    --on-dark-strong: #E8F4F2;   /* replaces rgba(255,255,255,.7-.8) */
+    --on-dark-faint:  #8FB8B2;   /* replaces rgba(255,255,255,.3-.4) */
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Jost',sans-serif; background:var(--warm); color:var(--text); overflow-x:hidden; }
+
+  /* ── LANG BAR ── */
+  .lang-bar {
+    position:fixed; top:0; right:0; left:0; z-index:200;
+    display:flex; justify-content:flex-end; padding:10px 28px;
+    background:rgba(10,21,18,.88); backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(11,123,111,.25);
+  }
+  .lang-btn {
+    background:none; border:1px solid var(--teal-mid); color:var(--teal-lt);
+    font-family:'Jost',sans-serif; font-size:11px; letter-spacing:2.5px;
+    padding:5px 14px; cursor:pointer; transition:all .3s; text-transform:uppercase;
+  }
+  .lang-btn.active, .lang-btn:hover { background:var(--teal); color:#fff; border-color:var(--teal); }
+  .lang-btn + .lang-btn { margin-left:6px; }
+
+  /* lang switching */
+  .en { display:none; }
+  body.lang-en .id { display:none; }
+  body.lang-en .en { display:block; }
+  span.en { display:none; }
+  body.lang-en span.id { display:none; }
+  body.lang-en span.en { display:inline; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height:100vh; background:var(--dark);
+    display:flex; align-items:center; position:relative; overflow:hidden;
+    padding:120px 6vw 80px;
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 55% 70% at 75% 45%, rgba(11,123,111,.18) 0%, transparent 65%),
+      radial-gradient(ellipse 35% 50% at 15% 85%, rgba(11,123,111,.08) 0%, transparent 55%);
+  }
+  /* subtle grid texture */
+  .hero::after {
+    content:''; position:absolute; inset:0; opacity:.04;
+    background-image:linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);
+    background-size:40px 40px;
+  }
+
+  .hero-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:80px;
+    align-items:center; max-width:1200px; margin:0 auto; width:100%;
+    position:relative; z-index:2;
+  }
+
+  .hero-tag {
+    font-size:10px; letter-spacing:4px; text-transform:uppercase;
+    color:var(--teal-mid); margin-bottom:20px; display:block;
+    border-left:2px solid var(--teal-mid); padding-left:12px;
+  }
+  .hero-title {
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(38px,5.5vw,68px); line-height:1.1;
+    color:var(--white); margin-bottom:20px;
+  }
+  .hero-title em { font-style:italic; color:var(--teal-mid); }
+
+  .hero-sub {
+    font-size:18px; color:var(--on-dark-body);
+    line-height:1.8; margin-bottom:40px; font-weight:400;
+    max-width:480px;
+  }
+
+  .cta-group { display:flex; gap:14px; flex-wrap:wrap; }
+
+  .btn-primary {
+    display:inline-block; padding:15px 36px;
+    background:var(--teal); color:#fff;
+    font-family:'Jost',sans-serif; font-weight:500;
+    font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
+    text-decoration:none; transition:all .3s;
+  }
+  .btn-primary:hover {
+    background:var(--teal-mid); transform:translateY(-2px);
+    box-shadow:0 10px 35px rgba(11,123,111,.4);
+  }
+  .btn-ghost {
+    display:inline-block; padding:15px 36px;
+    border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.6);
+    font-family:'Jost',sans-serif; font-size:13px; letter-spacing:1.5px;
+    text-transform:uppercase; text-decoration:none; transition:all .3s;
+  }
+  .btn-ghost:hover { border-color:var(--teal-mid); color:var(--teal-mid); }
+
+  /* hero visual — cell diagram */
+  .hero-visual { display:flex; justify-content:center; align-items:center; position:relative; }
+  .cell-orbit {
+    width:320px; height:320px; position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .orbit-ring {
+    position:absolute; border-radius:50%;
+    border:1px solid rgba(14,159,143,.2);
+    animation:spin-slow linear infinite;
+  }
+  .orbit-ring:nth-child(1) { width:100%; height:100%; animation-duration:20s; }
+  .orbit-ring:nth-child(2) { width:72%; height:72%; animation-duration:14s; animation-direction:reverse; border-color:rgba(14,159,143,.3); }
+  .orbit-ring:nth-child(3) { width:44%; height:44%; animation-duration:9s; border-color:rgba(14,159,143,.5); }
+
+  .orbit-dot {
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background:var(--teal-mid); box-shadow:0 0 12px var(--teal-mid);
+  }
+  .od1 { top:-4px; left:calc(50% - 4px); }
+  .od2 { top:calc(28% - 4px); right:-4px; }
+  .od3 { bottom:calc(28% - 4px); left:-4px; }
+
+  .cell-core {
+    width:110px; height:110px; border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, rgba(14,159,143,.6), rgba(11,123,111,.2));
+    border:1px solid rgba(14,159,143,.4);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    box-shadow:0 0 60px rgba(11,123,111,.3), inset 0 0 30px rgba(14,159,143,.1);
+    z-index:2; position:relative;
+  }
+  .cell-label {
+    font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:2px;
+    color:var(--teal-lt); text-transform:uppercase;
+  }
+  .cell-sub { font-size:10px; color:rgba(184,232,226,.5); letter-spacing:1px; margin-top:3px; }
+
+  @keyframes spin-slow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+  /* ── SECTIONS SHARED ── */
+  .section-tag {
+    font-size:10px; letter-spacing:4px; text-transform:uppercase;
+    color:var(--teal); display:block; margin-bottom:16px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(28px,4vw,48px); line-height:1.25; color:var(--text); margin-bottom:20px;
+  }
+  .section-title em { font-style:italic; color:var(--teal); }
+  .section-title.light { color:var(--white); }
+  .section-title.light em { color:var(--teal-mid); }
+  .divider { width:48px; height:2px; background:linear-gradient(90deg,var(--teal),transparent); margin:36px 0; }
+  .divider.center { margin:36px auto; }
+
+  .fade-in { opacity:0; transform:translateY(28px); transition:opacity .8s ease,transform .8s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+
+  /* ── THE CELL SCIENCE ── */
+  .science { padding:100px 6vw; max-width:1100px; margin:0 auto; }
+  .science-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .science-body { font-size:17px; color:#3A5550; line-height:1.9; font-weight:400; }
+  .science-body p + p { margin-top:18px; }
+  .science-body strong { color:var(--teal); font-weight:600; }
+
+  .pulse-stat {
+    background:var(--charcoal); padding:36px;
+    border-left:3px solid var(--teal); margin-bottom:16px;
+    position:relative; overflow:hidden;
+  }
+  .pulse-stat::before {
+    content:''; position:absolute; top:0; right:0; bottom:0; width:3px;
+    background:linear-gradient(180deg,var(--teal-mid),transparent);
+    opacity:.4;
+  }
+  .pulse-num {
+    font-family:'Cormorant Garamond',serif; font-size:44px; color:var(--teal-mid);
+    line-height:1; margin-bottom:8px;
+  }
+  .pulse-label { font-size:15px; color:var(--on-dark-body); letter-spacing:.5px; line-height:1.6; font-weight:400; }
+
+  /* ── PROBLEM ── */
+  .problem { padding:80px 6vw; background:var(--charcoal); }
+  .problem-inner { max-width:1100px; margin:0 auto; }
+  .problem-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:56px; }
+
+  .prob-card {
+    background:rgba(255,255,255,.03); padding:40px 32px;
+    position:relative; overflow:hidden; transition:background .4s;
+  }
+  .prob-card::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,var(--teal),var(--teal-mid));
+    transform:scaleX(0); transform-origin:left; transition:transform .4s;
+  }
+  .prob-card:hover { background:rgba(11,123,111,.06); }
+  .prob-card:hover::after { transform:scaleX(1); }
+
+  .prob-icon { font-size:28px; margin-bottom:14px; }
+  .prob-card h3 {
+    font-family:'Cormorant Garamond',serif; font-size:22px;
+    color:var(--white); margin-bottom:10px;
+  }
+  .prob-card p { font-size:16px; color:var(--on-dark-body); line-height:1.8; font-weight:400; }
+
+  /* ── HOW IT WORKS ── */
+  .how { padding:100px 6vw; max-width:1100px; margin:0 auto; }
+  .how-header { text-align:center; margin-bottom:70px; }
+  .how-subtitle { font-size:17px; color:var(--muted); font-weight:400; max-width:540px; margin:0 auto; line-height:1.8; }
+
+  .how-steps { display:grid; grid-template-columns:repeat(2,1fr); gap:3px; }
+  .step {
+    background:var(--white); padding:44px 40px;
+    display:flex; gap:28px; align-items:flex-start;
+    transition:transform .3s, box-shadow .3s;
+  }
+  .step:hover { transform:translateY(-4px); box-shadow:0 16px 50px rgba(0,0,0,.08); }
+  .step-num {
+    font-family:'Cormorant Garamond',serif; font-size:56px; color:var(--teal-lt);
+    line-height:1; flex-shrink:0; width:52px; font-weight:600;
+  }
+  .step h3 {
+    font-family:'Cormorant Garamond',serif; font-size:22px;
+    color:var(--text); margin-bottom:10px;
+  }
+  .step p { font-size:16px; color:#4A6560; line-height:1.8; font-weight:400; }
+
+  /* wave badge */
+  .wave-badge {
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--dark); padding:10px 20px; margin-top:12px;
+    border:1px solid rgba(14,159,143,.2);
+  }
+  .wave-dot { width:8px; height:8px; border-radius:50%; background:var(--teal-mid); flex-shrink:0; }
+  .wave-text { font-size:13px; color:var(--on-dark-body); letter-spacing:.5px; font-weight:400; }
+
+  /* ── TECHNOLOGY ── */
+  .tech { padding:100px 6vw; background:var(--dark); }
+  .tech-inner { max-width:1100px; margin:0 auto; }
+  .tech-header { margin-bottom:70px; }
+  .tech-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+
+  .tech-card {
+    background:rgba(255,255,255,.04); padding:44px;
+    border:1px solid rgba(14,159,143,.08); position:relative;
+    transition:border-color .4s, background .4s;
+  }
+  .tech-card:hover { border-color:rgba(14,159,143,.35); background:rgba(11,123,111,.06); }
+  .tech-card .tech-tag {
+    font-size:10px; letter-spacing:3px; text-transform:uppercase;
+    color:var(--teal-mid); margin-bottom:14px; display:block;
+  }
+  .tech-card h3 {
+    font-family:'Cormorant Garamond',serif; font-size:28px;
+    color:var(--white); margin-bottom:16px;
+  }
+  .tech-card p { font-size:16px; color:var(--on-dark-body); line-height:1.85; font-weight:400; }
+  .tech-specs { margin-top:24px; display:flex; flex-wrap:wrap; gap:8px; }
+  .spec-chip {
+    font-size:12px; padding:5px 14px; letter-spacing:.5px;
+    background:rgba(14,159,143,.1); color:var(--teal-lt);
+    border:1px solid rgba(14,159,143,.2); font-weight:500;
+  }
+  .tech-proof {
+    grid-column:1 / -1;
+    background:rgba(255,255,255,.03); border:1px solid rgba(14,159,143,.1);
+    padding:40px; display:flex; gap:32px; align-items:center;
+  }
+  .proof-icon { font-size:40px; flex-shrink:0; }
+  .proof-title {
+    font-family:'Cormorant Garamond',serif; font-size:22px;
+    color:var(--white); margin-bottom:10px;
+  }
+  .proof-body { font-size:16px; color:var(--on-dark-body); line-height:1.85; font-weight:400; }
+
+  /* ── CONDITIONS ── */
+  .conditions { padding:100px 6vw; max-width:1100px; margin:0 auto; }
+  .conditions-header { text-align:center; margin-bottom:60px; }
+  .cond-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .cond-card {
+    background:var(--white); padding:32px 28px;
+    border-top:3px solid var(--teal-lt);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .cond-card:hover { border-top-color:var(--teal); transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,.07); }
+  .cond-icon { font-size:26px; margin-bottom:12px; }
+  .cond-card h3 { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--text); margin-bottom:8px; }
+  .cond-card p { font-size:15px; color:#3A5550; line-height:1.75; font-weight:400; }
+
+  /* ── TESTIMONIALS ── */
+  .testi { padding:100px 6vw; background:var(--charcoal); }
+  .testi-inner { max-width:1100px; margin:0 auto; }
+  .testi-header { margin-bottom:60px; }
+  .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .testi-card {
+    background:rgba(255,255,255,.04); padding:36px;
+    border:1px solid rgba(14,159,143,.1); transition:border-color .3s;
+    position:relative;
+  }
+  .testi-card:hover { border-color:rgba(14,159,143,.35); }
+  .testi-condition {
+    display:inline-block; font-size:10px; letter-spacing:2px; text-transform:uppercase;
+    padding:4px 12px; background:rgba(11,123,111,.15); color:var(--teal-mid);
+    margin-bottom:18px;
+  }
+  .testi-quote-mark {
+    font-family:'Cormorant Garamond',serif; font-size:64px; color:var(--teal);
+    line-height:.4; margin-bottom:18px; opacity:.5;
+  }
+  .testi-text { font-size:16px; color:var(--on-dark-strong); line-height:1.85; font-style:italic; font-weight:400; margin-bottom:24px; }
+  .testi-name { font-size:14px; color:var(--teal-mid); font-weight:600; letter-spacing:.5px; }
+  .testi-detail { font-size:13px; color:var(--on-dark-faint); margin-top:4px; }
+
+  /* ── PRODUCT ── */
+  .product { padding:100px 6vw; max-width:900px; margin:0 auto; }
+  .product-box {
+    background:var(--white); padding:64px;
+    box-shadow:0 24px 80px rgba(0,0,0,.1); position:relative; overflow:hidden;
+  }
+  .product-box::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--teal),var(--teal-mid),var(--teal));
+  }
+  .product-badge {
+    display:inline-block; font-size:10px; letter-spacing:3px; text-transform:uppercase;
+    padding:5px 14px; background:rgba(11,123,111,.08); color:var(--teal);
+    border:1px solid rgba(11,123,111,.2); margin-bottom:20px;
+  }
+  .product-name { font-family:'Cormorant Garamond',serif; font-size:48px; color:var(--text); margin-bottom:4px; }
+  .product-tagline { font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
+
+  .price-block {
+    background:var(--warm); padding:36px; margin:36px 0;
+    display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center;
+  }
+  .price-idr { font-family:'Cormorant Garamond',serif; font-size:42px; color:var(--text); font-weight:700; line-height:1; }
+  .price-idr-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .price-usd { font-size:15px; color:var(--muted); margin-top:4px; }
+  .price-ppn { font-size:12px; color:var(--teal); margin-top:6px; }
+  .price-note { font-size:12px; color:var(--muted); line-height:1.6; border-left:2px solid var(--teal-lt); padding-left:14px; }
+
+  .feature-list { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:28px 0; }
+  .feature-list li { display:flex; align-items:flex-start; gap:10px; font-size:16px; color:#3A5550; line-height:1.6; font-weight:400; }
+  .feature-list li::before { content:'✓'; color:var(--teal); font-weight:700; flex-shrink:0; margin-top:1px; }
+
+  .btn-order {
+    display:inline-block; padding:18px 56px;
+    background:var(--teal); color:#fff;
+    font-family:'Jost',sans-serif; font-size:13px; letter-spacing:2px; text-transform:uppercase;
+    text-decoration:none; transition:all .3s;
+    border:2px solid var(--teal);
+  }
+  .btn-order:hover {
+    background:transparent; color:var(--teal);
+    box-shadow:0 8px 30px rgba(11,123,111,.3);
+  }
+  .order-note { margin-top:16px; font-size:12px; color:var(--muted); letter-spacing:.5px; }
+
+  /* ── USAGE GUIDE ── */
+  .usage { padding:80px 6vw; background:var(--dark); }
+  .usage-inner { max-width:900px; margin:0 auto; }
+  .usage-header { margin-bottom:56px; }
+  .usage-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .usage-step {
+    background:rgba(255,255,255,.04); padding:28px 32px;
+    display:flex; gap:20px; align-items:flex-start;
+    border:1px solid rgba(14,159,143,.08);
+  }
+  .step-circle {
+    width:36px; height:36px; border-radius:50%; background:var(--teal);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; font-weight:600; color:#fff; flex-shrink:0;
+  }
+  .usage-step h4 { font-size:16px; color:var(--white); font-weight:600; margin-bottom:8px; }
+  .usage-step p { font-size:15px; color:var(--on-dark-body); line-height:1.75; font-weight:400; }
+
+  .caution-box {
+    margin-top:32px; background:rgba(196,151,58,.05);
+    border:1px solid rgba(196,151,58,.2); padding:28px 32px;
+  }
+  .caution-title { font-size:14px; letter-spacing:1px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; font-weight:600; }
+  .caution-list { display:flex; flex-wrap:wrap; gap:8px; }
+  .caution-chip {
+    font-size:14px; padding:7px 16px;
+    background:rgba(196,151,58,.1); color:var(--gold-lt);
+    border:1px solid rgba(196,151,58,.2); font-weight:500;
+  }
+
+  /* ── FAQ ── */
+  .faq { padding:100px 6vw; background:var(--charcoal); }
+  .faq-inner { max-width:780px; margin:0 auto; }
+  .faq-item { border-bottom:1px solid rgba(255,255,255,.1); }
+  .faq-q {
+    width:100%; background:none; border:none; text-align:left;
+    padding:24px 0; font-family:'Jost',sans-serif; font-size:17px;
+    color:var(--on-dark-strong); cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+    font-weight:400;
+  }
+  .faq-q:hover { color:var(--teal-mid); }
+  .faq-icon { color:var(--teal-mid); font-size:20px; flex-shrink:0; transition:transform .3s; }
+  .faq-a {
+    max-height:0; overflow:hidden; transition:max-height .4s ease;
+    font-size:16px; color:var(--on-dark-body); line-height:1.9; font-weight:400;
+  }
+  .faq-a.open { max-height:280px; padding-bottom:24px; }
+  .faq-item.active .faq-icon { transform:rotate(45deg); }
+
+  /* ── CLOSING CTA ── */
+  .closing {
+    padding:130px 6vw; background:var(--dark); text-align:center; position:relative; overflow:hidden;
+  }
+  .closing::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse 65% 65% at 50% 50%, rgba(11,123,111,.1) 0%, transparent 70%);
+  }
+  .closing-eyebrow {
+    font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--teal-mid);
+    display:block; margin-bottom:20px; position:relative;
+  }
+  .closing-title {
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(36px,5.5vw,68px); color:var(--white); line-height:1.15;
+    margin-bottom:24px; position:relative;
+  }
+  .closing-title em { font-style:italic; color:var(--teal-mid); }
+  .closing-sub {
+    font-size:18px; color:var(--on-dark-body); font-weight:400; line-height:1.8;
+    margin-bottom:48px; max-width:480px; margin-left:auto; margin-right:auto; position:relative;
+  }
+  .closing-cta {
+    display:inline-block; padding:20px 64px;
+    background:var(--teal); color:#fff;
+    font-family:'Jost',sans-serif; font-weight:600; font-size:15px;
+    letter-spacing:2px; text-transform:uppercase;
+    text-decoration:none; transition:all .3s; position:relative;
+  }
+  .closing-cta:hover { background:var(--teal-mid); transform:translateY(-3px); box-shadow:0 16px 50px rgba(11,123,111,.5); }
+
+  /* ── FOOTER ── */
+  footer { padding:28px 6vw; background:#050E0C; text-align:center; font-size:13px; color:rgba(255,255,255,.45); letter-spacing:.5px; }
+  footer a { color:var(--teal-mid); text-decoration:none; }
+
+
+  /* ═══════════════════════════════════════════
+     SCIENCE V3 — Akar Masalah
+  ═══════════════════════════════════════════ */
+  .science { padding:100px 6vw; max-width:1100px; margin:0 auto; }
+
+  .science-intro {
+    font-size:17px; color:var(--muted); line-height:1.85;
+    max-width:680px; margin-bottom:56px;
+  }
+
+  /* Causes grid */
+  .causes-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-bottom:48px; }
+  .cause-card {
+    background:var(--white); padding:32px 28px;
+    display:flex; gap:18px; align-items:flex-start;
+    transition:transform .3s, box-shadow .3s;
+  }
+  .cause-card:hover { transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,0,0,.08); }
+  .cause-icon {
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; flex-shrink:0;
+  }
+  .cause-icon.ext { background:rgba(192,57,43,.08); }
+  .cause-icon.int { background:rgba(230,126,34,.08); }
+  .cause-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px; font-weight:500; }
+  .cause-label.ext { color:#C0392B; }
+  .cause-label.int { color:#E67E22; }
+  .cause-card h3 { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--text); margin-bottom:7px; }
+  .cause-card p { font-size:14px; color:var(--muted); line-height:1.75; }
+
+  .sci-arrow {
+    text-align:center; margin:0 0 40px;
+    font-size:28px; color:var(--teal-mid); opacity:.6;
+    animation:sci-bounce 2s ease-in-out infinite;
+  }
+  @keyframes sci-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+
+  /* Cell section */
+  .cell-section { background:var(--charcoal); padding:56px 48px; }
+  .cell-section-title {
+    font-family:'Cormorant Garamond',serif; font-size:30px;
+    color:var(--white); text-align:center; margin-bottom:8px;
+  }
+  .cell-section-sub { font-size:15px; color:var(--teal-lt); text-align:center; margin-bottom:48px; line-height:1.7; }
+
+  .cell-compare { display:grid; grid-template-columns:1fr 56px 1fr; gap:0; align-items:start; }
+  .cell-card { padding:36px 28px; border:1px solid rgba(255,255,255,.06); }
+  .cell-card.healthy { border-color:rgba(14,159,143,.2); }
+  .cell-card.damaged { border-color:rgba(192,57,43,.2); }
+
+  .cell-svg-wrap {
+    width:180px; height:180px; margin:0 auto 28px;
+    position:relative; display:flex; align-items:center; justify-content:center;
+  }
+  .cell-blob { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .cell-blob svg { width:100%; height:100%; }
+
+  /* Orbits */
+  .orbit { position:absolute; border-radius:50%; border:1px dashed rgba(14,159,143,.2); animation:orbit-spin linear infinite; }
+  .o1{width:90px;height:90px;animation-duration:8s}
+  .o2{width:118px;height:118px;animation-duration:13s;animation-direction:reverse;border-color:rgba(14,159,143,.15)}
+  .o3{width:148px;height:148px;animation-duration:19s;border-color:rgba(14,159,143,.1)}
+  .o4{width:172px;height:172px;animation-duration:25s;animation-direction:reverse;border-color:rgba(14,159,143,.06)}
+  .edot { position:absolute; border-radius:50%; background:var(--teal-mid); box-shadow:0 0 8px var(--teal-mid); }
+  .ed-s{width:7px;height:7px;top:-3.5px;left:calc(50% - 3.5px)}
+  .ed-m{width:9px;height:9px;top:-4.5px;left:calc(50% - 4.5px)}
+  .ed-l{width:8px;height:8px;top:-4px;left:calc(50% - 4px)}
+  @keyframes orbit-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+  /* Nucleus */
+  .cell-nucleus {
+    position:absolute; z-index:4; width:50px; height:50px;
+    border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;
+  }
+  .cell-nucleus.h {
+    background:radial-gradient(circle at 35% 30%, rgba(184,232,226,.95), rgba(14,159,143,.6));
+    border:1.5px solid rgba(184,232,226,.8); box-shadow:0 0 20px rgba(14,159,143,.5);
+    animation:nuc-h 4s ease-in-out infinite;
+  }
+  .cell-nucleus.d {
+    background:radial-gradient(circle at 35% 30%, rgba(232,100,90,.7), rgba(150,30,20,.5));
+    border:1.5px dashed rgba(232,100,90,.6); box-shadow:0 0 16px rgba(192,57,43,.4);
+    animation:nuc-d 2.5s ease-in-out infinite;
+  }
+  @keyframes nuc-h{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  @keyframes nuc-d{0%,100%{transform:scale(1)}50%{transform:scale(.93)}}
+
+  /* Radicals */
+  .rad {
+    position:absolute; border-radius:50%;
+    background:#C0392B; box-shadow:0 0 10px rgba(192,57,43,.8);
+    animation:rflight linear infinite; z-index:5;
+  }
+  .rd1{width:10px;height:10px;top:14%;left:12%;animation-duration:2s}
+  .rd2{width:8px;height:8px;top:20%;right:10%;animation-duration:2.4s;animation-delay:.3s}
+  .rd3{width:12px;height:12px;bottom:18%;left:18%;animation-duration:1.8s;animation-delay:.6s}
+  .rd4{width:7px;height:7px;bottom:15%;right:14%;animation-duration:2.2s;animation-delay:.9s}
+  .rd5{width:9px;height:9px;top:48%;left:6%;animation-duration:1.6s;animation-delay:1.2s}
+  .rd6{width:6px;height:6px;top:60%;right:8%;animation-duration:2.6s;animation-delay:1.5s}
+  @keyframes rflight{0%{transform:translate(0,0) scale(1);opacity:1}25%{transform:translate(5px,-7px) scale(1.4);opacity:.8}50%{transform:translate(-5px,5px) scale(.7);opacity:.5}75%{transform:translate(7px,3px) scale(1.2);opacity:.9}100%{transform:translate(0,0) scale(1);opacity:1}}
+
+  /* Cell traits */
+  .cell-card h3 { font-family:'Cormorant Garamond',serif; font-size:24px; margin-bottom:16px; text-align:center; }
+  .cell-card.healthy h3 { color:var(--teal-mid); }
+  .cell-card.damaged h3 { color:#E87C72; }
+  .cell-traits { list-style:none; }
+  .cell-traits li { font-size:14px; line-height:1.7; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.07); color:rgba(255,255,255,.72); display:flex; gap:10px; align-items:flex-start; }
+  .cell-traits li:last-child { border-bottom:none; }
+  .tdot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:6px; }
+  .tg { background:var(--teal-mid); box-shadow:0 0 6px rgba(14,159,143,.7); }
+  .tr { background:#E87C72; box-shadow:0 0 6px rgba(232,124,114,.7); }
+
+  /* VS */
+  .vs-divider { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding-top:64px; }
+  .vs-line { width:1px; height:56px; background:linear-gradient(180deg,transparent,rgba(255,255,255,.15),transparent); }
+  .vs-text { font-family:'Cormorant Garamond',serif; font-size:20px; color:rgba(255,255,255,.3); letter-spacing:2px; }
+
+  /* Threshold */
+  .threshold { background:var(--white); padding:44px 48px; border-left:4px solid #C0392B; margin-top:36px; }
+  .threshold-title { font-family:'Cormorant Garamond',serif; font-size:24px; color:var(--text); margin-bottom:32px; line-height:1.4; }
+  .danger-txt { color:#C0392B; }
+  .threshold-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+  .threshold-item { padding:32px 20px; text-align:center; position:relative; overflow:hidden; }
+  .threshold-item::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; }
+  .t1{background:rgba(230,126,34,.05)}.t1::before{background:#E67E22}
+  .t2{background:rgba(192,57,43,.06)}.t2::before{background:#C0392B}
+  .t3{background:rgba(100,20,15,.07)}.t3::before{background:#7B241C}
+  .th-op { font-family:'Cormorant Garamond',serif; font-size:22px; display:block; line-height:1; margin-bottom:4px; opacity:.75; letter-spacing:1px; }
+  .t1 .th-op{color:#E67E22}.t2 .th-op{color:#C0392B}.t3 .th-op{color:#7B241C}
+  .th-num { font-family:'Cormorant Garamond',serif; font-size:72px; font-weight:700; line-height:1; display:block; margin-bottom:2px; }
+  .t1 .th-num{color:#E67E22}.t2 .th-num{color:#C0392B}.t3 .th-num{color:#7B241C}
+  .th-x { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:400; vertical-align:super; }
+  .th-lbl { font-size:14px; color:var(--muted); line-height:1.6; letter-spacing:.3px; display:block; margin-top:10px; }
+  .th-dis { font-size:20px; font-weight:600; color:var(--text); margin-top:12px; display:block; }
+  .threshold-note { margin-top:24px; border-top:1px solid rgba(0,0,0,.07); padding-top:18px; font-size:13px; color:var(--muted); line-height:1.7; font-style:italic; }
+
+  /* Battery bridge */
+  .solution-bridge {
+    padding:48px; border:1px solid rgba(11,123,111,.2); border-top:none;
+    background:linear-gradient(135deg,rgba(11,123,111,.09),rgba(14,159,143,.04));
+    display:grid; grid-template-columns:140px 1fr; gap:48px; align-items:center;
+  }
+  .battery-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .battery-outer { display:flex; flex-direction:column; align-items:center; }
+  .battery-tip { width:28px; height:10px; background:var(--teal-mid); border-radius:4px 4px 0 0; opacity:.85; }
+  .battery-body { width:60px; height:116px; border:3px solid var(--teal-mid); border-radius:0 0 10px 10px; position:relative; overflow:hidden; background:rgba(10,21,18,.7); box-shadow:0 0 20px rgba(14,159,143,.15); }
+  .battery-fill { position:absolute; bottom:0; left:0; right:0; border-radius:0 0 7px 7px; background:linear-gradient(180deg,rgba(14,159,143,.6),rgba(11,123,111,.95),rgba(8,80,72,1)); animation:batt-charge 3.2s ease-in-out infinite; }
+  @keyframes batt-charge{0%{height:8%;opacity:.5}60%{height:92%;opacity:1}85%{height:92%;opacity:1}100%{height:8%;opacity:.5}}
+  .batt-segs { position:absolute; inset:4px; display:flex; flex-direction:column; justify-content:space-between; pointer-events:none; z-index:2; }
+  .batt-seg { height:1px; background:rgba(255,255,255,.08); }
+  .batt-bolt { position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; font-size:32px; filter:drop-shadow(0 0 8px rgba(14,159,143,.8)); animation:bolt-flash 3.2s ease-in-out infinite; }
+  @keyframes bolt-flash{0%,100%{opacity:.3;transform:scale(.9)}30%,70%{opacity:1;transform:scale(1.1)}85%{opacity:0}}
+  .batt-dots { display:flex; gap:6px; align-items:center; margin-top:4px; }
+  .bdot { width:7px; height:7px; border-radius:50%; background:var(--teal-mid); animation:bdot-blink 1.6s ease-in-out infinite; }
+  .bdot:nth-child(2){animation-delay:.32s}.bdot:nth-child(3){animation-delay:.64s}
+  @keyframes bdot-blink{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+  .batt-caption { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--teal-mid); text-align:center; margin-top:6px; animation:batt-caption-pulse 3.2s ease-in-out infinite; }
+  @keyframes batt-caption-pulse{0%,100%{opacity:.5}60%{opacity:1}}
+  .bridge-title { font-family:'Cormorant Garamond',serif; font-size:28px; color:var(--text); margin-bottom:14px; line-height:1.3; }
+  .bridge-title em { font-style:italic; color:var(--teal); }
+  .bridge-body { font-size:15px; color:var(--muted); line-height:1.9; }
+  .bridge-body strong { color:var(--teal); font-weight:600; }
+
+  /* Conditions sub */
+  .conditions-sub { font-size:16px; color:var(--muted); line-height:1.7; max-width:680px; margin:12px auto 0; }
+
+  /* Testi button */
+  .testi-btn {
+    margin-top:20px; background:none; border:1px solid rgba(14,159,143,.3);
+    color:var(--teal-mid); font-family:'Jost',sans-serif; font-size:13px;
+    letter-spacing:.5px; padding:10px 20px; cursor:pointer; width:100%;
+    transition:all .3s;
+  }
+  .testi-btn:hover { background:rgba(14,159,143,.1); border-color:var(--teal-mid); }
+
+  /* Modal */
+  .testi-modal {
+    display:none; position:fixed; inset:0; z-index:500;
+    background:rgba(0,0,0,.75); backdrop-filter:blur(6px);
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .testi-modal.open { display:flex; }
+  .testi-modal-box {
+    background:var(--charcoal); max-width:580px; width:100%;
+    padding:48px; position:relative; max-height:90vh; overflow-y:auto;
+    border:1px solid rgba(14,159,143,.2);
+  }
+  .modal-close {
+    position:absolute; top:16px; right:16px;
+    background:none; border:none; color:rgba(255,255,255,.5);
+    font-size:20px; cursor:pointer; transition:color .2s;
+  }
+  .modal-close:hover { color:var(--white); }
+  .modal-condition { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--teal-mid); margin-bottom:16px; padding:4px 12px; border:1px solid rgba(14,159,143,.2); display:inline-block; background:rgba(14,159,143,.08); }
+  .modal-quote { font-family:'Cormorant Garamond',serif; font-size:64px; color:var(--teal); line-height:.4; margin-bottom:20px; opacity:.5; }
+  .modal-text { font-size:17px; color:var(--on-dark-strong); line-height:1.85; font-style:italic; margin-bottom:28px; }
+  .modal-person { display:flex; gap:16px; align-items:center; margin-bottom:28px; padding-bottom:24px; border-bottom:1px solid rgba(255,255,255,.08); }
+  .modal-avatar { width:48px; height:48px; border-radius:50%; background:rgba(14,159,143,.2); border:2px solid rgba(14,159,143,.3); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .modal-name { font-size:15px; color:var(--teal-mid); font-weight:600; }
+  .modal-info { font-size:13px; color:var(--on-dark-faint); margin-top:3px; }
+  .modal-story { font-size:15px; color:var(--on-dark-body); line-height:1.85; margin-bottom:32px; }
+  .modal-story p + p { margin-top:16px; }
+  .modal-cta {
+    display:block; text-align:center; padding:16px 32px;
+    background:var(--teal); color:var(--white);
+    font-family:'Jost',sans-serif; font-size:14px; letter-spacing:1px;
+    text-decoration:none; transition:background .3s;
+  }
+  .modal-cta:hover { background:var(--teal-mid); }
+
+  @media(max-width:600px) {
+    .testi-modal-box { padding:32px 20px; }
+    .modal-text { font-size:16px; }
+    .modal-story { font-size:15px; }
+  }
+
+  /* ═══════════════════════════════════════════
+     MID-PAGE CTA (~50% scroll)
+  ═══════════════════════════════════════════ */
+  .mid-cta { background:var(--teal); padding:32px 6vw; }
+  .mid-cta-inner {
+    max-width:1100px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between; gap:32px;
+  }
+  .mid-cta-label { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.65); margin-bottom:6px; }
+  .mid-cta-text { font-size:18px; color:var(--white); font-weight:400; line-height:1.5; font-family:'Cormorant Garamond',serif; }
+  .mid-cta-btn {
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 32px; flex-shrink:0;
+    background:var(--white); color:var(--teal);
+    font-family:'Jost',sans-serif; font-weight:600; font-size:14px; letter-spacing:1px;
+    text-decoration:none; transition:all .3s; white-space:nowrap;
+  }
+  .mid-cta-btn:hover { background:var(--dark); color:var(--teal-lt); box-shadow:0 8px 30px rgba(0,0,0,.3); transform:translateY(-2px); }
+  .mid-cta-icon { font-size:20px; }
+
+  @media(max-width:680px) {
+    .mid-cta-inner { flex-direction:column; align-items:flex-start; gap:20px; }
+    .mid-cta-btn { width:100%; justify-content:center; }
+    .mid-cta-text { font-size:17px; }
+  }
+
+  @media(max-width:900px) {
+    .hero-grid { grid-template-columns:1fr; gap:50px; }
+    .hero-visual { display:none; }
+    .causes-grid { grid-template-columns:1fr; }
+    .cell-compare { grid-template-columns:1fr; }
+    .vs-divider { flex-direction:row; padding:16px 0; }
+    .vs-line { width:60px; height:1px; }
+    .solution-bridge { grid-template-columns:1fr; gap:32px; padding:36px 28px; }
+    .battery-wrap { flex-direction:row; gap:24px; align-items:center; }
+    .cell-section { padding:36px 24px; }
+    .threshold { padding:32px 24px; }
+    .threshold-grid { grid-template-columns:1fr; gap:8px; }
+    .how-steps { grid-template-columns:1fr; }
+    .tech-grid { grid-template-columns:1fr; }
+    .tech-proof { flex-direction:column; }
+    .cond-grid { grid-template-columns:1fr 1fr; }
+    .testi-grid { grid-template-columns:1fr; }
+    .product-box { padding:40px 28px; }
+    .price-block { grid-template-columns:1fr; gap:28px; }
+    .feature-list { grid-template-columns:1fr; }
+    .usage-grid { grid-template-columns:1fr; }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     MOBILE AKSESIBILITAS — Dioptimasi untuk usia 55+ tahun
+     dengan potensi masalah penglihatan (diabetes, darah tinggi)
+     Target: WCAG AA Large Text, min 4.5:1 contrast ratio
+     Font minimum: 18px body, 20px paragraf penting
+  ════════════════════════════════════════════════════════ */
+  @media(max-width:600px) {
+
+    /* Layout dasar */
+    .cond-grid { grid-template-columns:1fr; }
+    .hero { padding:90px 6vw 56px; }
+    .science, .how, .conditions, .product, .closing { padding:64px 6vw; }
+    .problem, .tech, .testi, .usage, .faq { padding:64px 6vw; }
+    .product-box { padding:36px 20px; }
+
+    /* ── BODY BASE ── */
+    /* 18px adalah minimum WCAG untuk teks body bagi pengguna lansia */
+    body { font-size:18px; line-height:1.85; }
+
+    /* ── HEADING SIZES ── */
+    /* Judul hero tetap besar — sudah pakai clamp, aman */
+    .hero-title { line-height:1.15; }
+    /* Section title diperbesar sedikit untuk keterbacaan */
+    .section-title { font-size:clamp(26px,7vw,40px); line-height:1.3; }
+
+    /* ── LABEL & TAG KECIL ── */
+    /* Naikkan dari 10px ke 13px — sudah di batas baca */
+    .section-tag,
+    .hero-tag,
+    .testi-condition,
+    .product-badge,
+    .tech-card .tech-tag,
+    .closing-eyebrow { font-size:13px; letter-spacing:2px; }
+
+    /* ── BODY PARAGRAF — SEMUA SECTION ── */
+    /* Standar 18px minimum, paragraf penting 20px */
+    .hero-sub              { font-size:20px; line-height:1.85; font-weight:400; }
+    .science-body          { font-size:19px; line-height:1.95; }
+    .prob-card p           { font-size:18px; line-height:1.85; }
+    .step p                { font-size:18px; line-height:1.85; }
+    .tech-card p           { font-size:18px; line-height:1.85; }
+    .proof-body            { font-size:18px; line-height:1.85; }
+    .cond-card p           { font-size:17px; line-height:1.8;  }
+    .testi-text            { font-size:18px; line-height:1.9;  }
+    .usage-step p          { font-size:18px; line-height:1.8;  }
+    .closing-sub           { font-size:19px; line-height:1.85; }
+    .pulse-label           { font-size:17px; line-height:1.7;  }
+    .price-note            { font-size:15px; line-height:1.75; }
+    .order-note            { font-size:14px; }
+
+    /* ── FAQ — area teks terpanjang ── */
+    /* Pertanyaan dan jawaban harus paling mudah dibaca */
+    .faq-q  { font-size:18px; line-height:1.6; padding:22px 0; min-height:56px; }
+    .faq-a  { font-size:18px; line-height:1.95; }
+
+    /* ── HEADING DALAM CARD ── */
+    .prob-card h3  { font-size:24px; margin-bottom:12px; }
+    .step h3       { font-size:22px; margin-bottom:10px; }
+    .tech-card h3  { font-size:26px; margin-bottom:14px; }
+    .cond-card h3  { font-size:22px; margin-bottom:10px; }
+    .proof-title   { font-size:22px; margin-bottom:12px; }
+    .usage-step h4 { font-size:19px; margin-bottom:8px;  }
+
+    /* ── HARGA & PRODUK ── */
+    /* Harga adalah info kritis — harus jelas */
+    .product-name        { font-size:40px; }
+    .product-tagline     { font-size:14px; letter-spacing:1.5px; }
+    .price-idr           { font-size:38px; }
+    .price-idr-label     { font-size:13px; letter-spacing:1px; }
+    .price-usd           { font-size:17px; }
+    .price-ppn           { font-size:14px; }
+    .feature-list li     { font-size:17px; line-height:1.7; gap:12px; }
+
+    /* ── STATISTIK SEL ── */
+    .pulse-num  { font-size:42px; }
+
+    /* ── TESTIMONI ── */
+    .testi-name   { font-size:16px; }
+    .testi-detail { font-size:15px; }
+
+    /* ── TOMBOL CTA — Touch target minimum 56px tinggi ── */
+    /* Jari lansia butuh area tap yang lebih lebar */
+    .btn-primary, .btn-ghost {
+      padding:18px 28px;
+      font-size:16px;
+      min-height:56px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .cta-group { flex-direction:column; gap:12px; }
+    .btn-order {
+      padding:20px 36px;
+      font-size:16px;
+      min-height:60px;
+      letter-spacing:1.5px;
+      width:100%;
+      text-align:center;
+      display:block;
+    }
+    .closing-cta {
+      padding:20px 40px;
+      font-size:16px;
+      min-height:60px;
+      display:inline-flex;
+      align-items:center;
+    }
+
+    /* ── TOMBOL LANG — Lebih mudah di-tap ── */
+    .lang-btn {
+      padding:10px 18px;
+      font-size:13px;
+      min-height:44px;
+    }
+
+    /* ── STEP CIRCLE — Touch-friendly ── */
+    .step-circle { width:48px; height:48px; font-size:18px; flex-shrink:0; }
+
+    /* ── SPESIFIKASI CHIPS ── */
+    .spec-chip   { font-size:13px; padding:6px 14px; }
+    .caution-chip { font-size:14px; padding:8px 16px; }
+    .caution-title { font-size:15px; }
+
+    /* ── WAVE BADGE ── */
+    .wave-text { font-size:14px; }
+    .wave-badge { padding:12px 18px; margin-top:16px; }
+
+    /* ── CARD PADDING lebih longgar ── */
+    .prob-card   { padding:36px 28px; }
+    .step        { padding:36px 28px; gap:20px; }
+    .tech-card   { padding:36px 28px; }
+    .cond-card   { padding:28px 24px; }
+    .testi-card  { padding:32px 24px; }
+    .usage-step  { padding:28px 24px; gap:16px; }
+    .tech-proof  { padding:32px 24px; }
+    .pulse-stat  { padding:28px 24px; margin-bottom:14px; }
+    .caution-box { padding:28px 24px; }
+
+    /* ── FOOTER ── */
+    footer { font-size:13px; padding:24px 6vw; line-height:1.7; }
+
+    /* ── FAQ ICON — lebih mudah dilihat ── */
+    .faq-icon { font-size:22px; }
+  }
+
+  /* Extra kecil — HP lama atau layar sangat sempit */
+  @media(max-width:380px) {
+    .hero-sub      { font-size:18px; }
+    .science-body  { font-size:18px; }
+    .faq-q         { font-size:17px; }
+    .btn-order     { font-size:15px; }
+    .price-idr     { font-size:34px; }
+  }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1707695846780612');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1707695846780612&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('id')">ID</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- ═══════════════════════════════ HERO ══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-content fade-in">
+      <span class="hero-tag">
+        <span class="id">OlyLife · Teknologi PEMF & Terahertz</span>
+        <span class="en">OlyLife · PEMF & Terahertz Technology</span>
+      </span>
+      <h1 class="hero-title">
+        <span class="id">Sel tubuhmu<br>bisa <em>pulih.</em><br>Dari dalam.</span>
+        <span class="en">Your cells<br>can <em>heal.</em><br>From within.</span>
+      </h1>
+      <p class="hero-sub">
+        <span class="id">Tubuh manusia punya kemampuan penyembuhan intrinsik. Tapi seiring usia dan gaya hidup, kemampuan itu melemah. Tera P90 hadir untuk mengaktifkannya kembali.</span>
+        <span class="en">The human body has intrinsic healing abilities. But with age and lifestyle, that ability weakens. Tera P90 is here to reactivate it.</span>
+      </p>
+      <div class="cta-group">
+        <a href="#product" class="btn-primary">
+          <span class="id">Lihat Produk</span>
+          <span class="en">See Product</span>
+        </a>
+        <a href="#science" class="btn-ghost">
+          <span class="id">Pelajari Sains-nya</span>
+          <span class="en">Learn the Science</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual fade-in">
+      <div class="cell-orbit">
+        <div class="orbit-ring"><div class="orbit-dot od1"></div></div>
+        <div class="orbit-ring"><div class="orbit-dot od2"></div></div>
+        <div class="orbit-ring"><div class="orbit-dot od3"></div></div>
+        <div class="cell-core">
+          <span class="cell-label">TERA P90</span>
+          <span class="cell-sub">OlyLife</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CELL SCIENCE ═════════════════════════ -->
+<!-- ═══════════════════════════════ SCIENCE (AKAR MASALAH) ════════════════ -->
+<section class="science" id="science">
+  <span class="section-tag fade-in">
+    <span class="id">Mengapa Tubuh Bisa Sakit</span>
+    <span class="en">Why the Body Gets Sick</span>
+  </span>
+  <h2 class="section-title fade-in">
+    <span class="id">Tubuhmu punya kemampuan<br>untuk <em>sembuh sendiri.</em><br>Tapi ada yang mengganggunya.</span>
+    <span class="en">Your body has the ability<br>to <em>heal itself.</em><br>But something's getting in the way.</span>
+  </h2>
+  <p class="science-intro fade-in">
+    <span class="id">Setiap sel dalam tubuhmu dirancang untuk memperbaiki diri, berkomunikasi, dan bertahan. Kemampuan ini bisa melemah — dari luar maupun dari dalam.</span>
+    <span class="en">Every cell in your body is designed to repair itself, communicate, and survive. But this ability can weaken — from outside and within.</span>
+  </p>
+
+  <!-- 4 FAKTOR PENYEBAB -->
+  <div class="causes-grid fade-in">
+    <div class="cause-card">
+      <div class="cause-icon ext">🌫️</div>
+      <div>
+        <div class="cause-label ext"><span class="id">Faktor Luar</span><span class="en">External Factor</span></div>
+        <h3><span class="id">Polusi & Paparan Kimia</span><span class="en">Pollution & Chemical Exposure</span></h3>
+        <p><span class="id">Udara kotor, asap kendaraan, dan zat kimia sehari-hari menghasilkan radikal bebas yang merusak sel dari luar.</span><span class="en">Dirty air, vehicle exhaust, and daily chemicals generate free radicals that damage cells from outside.</span></p>
+      </div>
+    </div>
+    <div class="cause-card">
+      <div class="cause-icon ext">🥬</div>
+      <div>
+        <div class="cause-label ext"><span class="id">Faktor Luar</span><span class="en">External Factor</span></div>
+        <h3><span class="id">Kualitas Makanan</span><span class="en">Food Quality</span></h3>
+        <p><span class="id">Sayuran mengandung residu pestisida, daging mengandung bahan pengawet kimia. Masuk ke tubuh setiap hari, menumpuk di sel tanpa disadari.</span><span class="en">Vegetables contain pesticide residues, meat contains chemical preservatives. Entering the body daily, accumulating in cells without notice.</span></p>
+      </div>
+    </div>
+    <div class="cause-card">
+      <div class="cause-icon int">🧠</div>
+      <div>
+        <div class="cause-label int"><span class="id">Faktor Dalam</span><span class="en">Internal Factor</span></div>
+        <h3><span class="id">Stres Berkepanjangan</span><span class="en">Chronic Stress</span></h3>
+        <p><span class="id">Stres menghasilkan kortisol berlebih dari dalam tubuh. Jika berlangsung terus-menerus, kortisol merusak sel, menekan imunitas, dan memperlambat pemulihan dari dalam.</span><span class="en">Stress produces excess cortisol from within. If ongoing, cortisol damages cells, suppresses immunity, and slows recovery from the inside.</span></p>
+      </div>
+    </div>
+    <div class="cause-card">
+      <div class="cause-icon int">🌙</div>
+      <div>
+        <div class="cause-label int"><span class="id">Faktor Dalam</span><span class="en">Internal Factor</span></div>
+        <h3><span class="id">Kualitas Tidur Buruk</span><span class="en">Poor Sleep Quality</span></h3>
+        <p><span class="id">Perbaikan sel terjadi saat tidur — terutama di fase <em>deep sleep</em>. Tanpa tidur yang cukup dalam, tubuh kehilangan waktu pembaruannya. Stres dan tidur buruk saling memperburuk satu sama lain.</span><span class="en">Cell repair happens during sleep — especially in <em>deep sleep</em>. Without sufficient deep sleep, the body loses its renewal window. Stress and poor sleep reinforce each other.</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sci-arrow fade-in">↓</div>
+
+  <!-- CELL COMPARISON -->
+  <div class="cell-section fade-in">
+    <h3 class="cell-section-title">
+      <span class="id">Apa yang terjadi di dalam selmu?</span>
+      <span class="en">What's happening inside your cells?</span>
+    </h3>
+    <p class="cell-section-sub">
+      <span class="id">Keempat faktor di atas menghasilkan satu musuh yang sama: <strong style="color:var(--teal-lt)">Radikal Bebas</strong></span>
+      <span class="en">All four factors above produce one common enemy: <strong style="color:var(--teal-lt)">Free Radicals</strong></span>
+    </p>
+
+    <div class="cell-compare">
+      <!-- SEL SEHAT -->
+      <div class="cell-card healthy">
+        <div class="cell-svg-wrap">
+          <div class="orbit o1"><div class="edot ed-s"></div></div>
+          <div class="orbit o2"><div class="edot ed-m"></div></div>
+          <div class="orbit o3"><div class="edot ed-l"></div></div>
+          <div class="orbit o4"><div class="edot ed-s"></div></div>
+          <div class="cell-blob h">
+            <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="hgrad" cx="38%" cy="32%" r="65%">
+                  <stop offset="0%"   stop-color="rgba(14,159,143,.45)"/>
+                  <stop offset="55%"  stop-color="rgba(11,123,111,.22)"/>
+                  <stop offset="100%" stop-color="rgba(8,90,82,.08)"/>
+                </radialGradient>
+                <filter id="hglow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <ellipse cx="90" cy="90" rx="82" ry="78" fill="rgba(14,159,143,.06)"/>
+              <path d="M90,14 C118,12 150,28 158,56 C168,84 162,118 142,138 C122,158 92,166 64,158 C36,150 18,126 14,98 C10,70 20,38 42,24 C56,16 72,15 90,14 Z" fill="url(#hgrad)"/>
+              <path d="M90,14 C118,12 150,28 158,56 C168,84 162,118 142,138 C122,158 92,166 64,158 C36,150 18,126 14,98 C10,70 20,38 42,24 C56,16 72,15 90,14 Z" fill="none" stroke="rgba(14,159,143,.65)" stroke-width="2" filter="url(#hglow)"/>
+              <ellipse cx="55" cy="60" rx="12" ry="7" fill="rgba(14,159,143,.3)" stroke="rgba(14,159,143,.5)" stroke-width="1" transform="rotate(-20 55 60)"/>
+              <ellipse cx="122" cy="115" rx="10" ry="6" fill="rgba(14,159,143,.25)" stroke="rgba(14,159,143,.45)" stroke-width="1" transform="rotate(18 122 115)"/>
+              <ellipse cx="68" cy="130" rx="8" ry="5" fill="rgba(14,159,143,.2)" stroke="rgba(14,159,143,.35)" stroke-width="1" transform="rotate(5 68 130)"/>
+            </svg>
+          </div>
+          <div class="cell-nucleus h">✦</div>
+        </div>
+        <h3><span class="id">Sel Sehat</span><span class="en">Healthy Cell</span></h3>
+        <ul class="cell-traits">
+          <li><div class="tdot tg"></div><span class="id">Membran sel utuh, elektron stabil</span><span class="en">Intact membrane, stable electrons</span></li>
+          <li><div class="tdot tg"></div><span class="id">Komunikasi antar sel optimal</span><span class="en">Optimal cell-to-cell communication</span></li>
+          <li><div class="tdot tg"></div><span class="id">Perbaikan diri berjalan saat tidur</span><span class="en">Self-repair runs during sleep</span></li>
+          <li><div class="tdot tg"></div><span class="id">Imunitas & metabolisme kuat</span><span class="en">Strong immunity & metabolism</span></li>
+          <li><div class="tdot tg"></div><span class="id">Sirkulasi mikro lancar</span><span class="en">Smooth microcirculation</span></li>
+        </ul>
+      </div>
+
+      <div class="vs-divider">
+        <div class="vs-line"></div>
+        <div class="vs-text">VS</div>
+        <div class="vs-line"></div>
+      </div>
+
+      <!-- SEL RUSAK -->
+      <div class="cell-card damaged">
+        <div class="cell-svg-wrap">
+          <div class="rad rd1"></div><div class="rad rd2"></div><div class="rad rd3"></div>
+          <div class="rad rd4"></div><div class="rad rd5"></div><div class="rad rd6"></div>
+          <div class="cell-blob d">
+            <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="dgrad" cx="38%" cy="32%" r="65%">
+                  <stop offset="0%"   stop-color="rgba(192,57,43,.35)"/>
+                  <stop offset="55%"  stop-color="rgba(140,30,20,.18)"/>
+                  <stop offset="100%" stop-color="rgba(80,15,10,.08)"/>
+                </radialGradient>
+                <filter id="dglow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <ellipse cx="90" cy="90" rx="82" ry="78" fill="rgba(192,57,43,.05)"/>
+              <path d="M90,14 C115,8 152,24 162,56 C174,90 158,126 134,144 C108,164 74,168 50,154 C24,140 10,112 12,84 C14,58 28,32 52,20 C64,14 76,17 90,14 Z" fill="url(#dgrad)"/>
+              <path d="M90,14 C115,8 152,24 162,56 C174,90 158,126 134,144 C108,164 74,168 50,154 C24,140 10,112 12,84 C14,58 28,32 52,20 C64,14 76,17 90,14 Z" fill="none" stroke="rgba(192,57,43,.6)" stroke-width="2" stroke-dasharray="8 4" filter="url(#dglow)"/>
+              <line x1="130" y1="28" x2="118" y2="46" stroke="rgba(232,100,90,.7)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="42" y1="130" x2="56" y2="118" stroke="rgba(232,100,90,.6)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="34" y1="62" x2="48" y2="74" stroke="rgba(232,100,90,.5)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cell-nucleus d">✕</div>
+        </div>
+        <h3><span class="id">Sel Diserang Radikal Bebas</span><span class="en">Cell Under Free Radical Attack</span></h3>
+        <ul class="cell-traits">
+          <li><div class="tdot tr"></div><span class="id">Membran bocor, elektron dicuri</span><span class="en">Leaking membrane, stolen electrons</span></li>
+          <li><div class="tdot tr"></div><span class="id">Komunikasi antar sel kacau</span><span class="en">Cell communication disrupted</span></li>
+          <li><div class="tdot tr"></div><span class="id">Proses perbaikan saat tidur terganggu</span><span class="en">Sleep-repair process interrupted</span></li>
+          <li><div class="tdot tr"></div><span class="id">Imunitas melemah, organ kelelahan</span><span class="en">Weakened immunity, exhausted organs</span></li>
+          <li><div class="tdot tr"></div><span class="id">Sirkulasi tersumbat, racun menumpuk</span><span class="en">Blocked circulation, toxin buildup</span></li>
+        </ul>
+      </div>
+    </div><!-- /cell-compare -->
+
+    <!-- THRESHOLD -->
+    <div class="threshold">
+      <div class="threshold-title">
+        <span class="id">Ketika kerusakan melewati <span class="danger-txt">ambang batas</span> — tubuh mulai sakit</span>
+        <span class="en">When damage crosses the <span class="danger-txt">threshold</span> — the body starts to break down</span>
+      </div>
+      <div class="threshold-grid">
+        <div class="threshold-item t1">
+          <span class="th-op">≥</span>
+          <span class="th-num">5<span class="th-x">×</span></span>
+          <span class="th-lbl"><span class="id">ambang batas radikal bebas</span><span class="en">free radical threshold</span></span>
+          <span class="th-dis">⚡ Stroke</span>
+        </div>
+        <div class="threshold-item t2">
+          <span class="th-op">≥</span>
+          <span class="th-num">10<span class="th-x">×</span></span>
+          <span class="th-lbl"><span class="id">ambang batas radikal bebas</span><span class="en">free radical threshold</span></span>
+          <span class="th-dis">🩸 Diabetes</span>
+        </div>
+        <div class="threshold-item t3">
+          <span class="th-op">≥</span>
+          <span class="th-num">20<span class="th-x">×</span></span>
+          <span class="th-lbl"><span class="id">ambang batas radikal bebas</span><span class="en">free radical threshold</span></span>
+          <span class="th-dis"><span class="id">⚠️ Kanker</span><span class="en">⚠️ Cancer</span></span>
+        </div>
+      </div>
+      <p class="threshold-note">
+        <span class="id">* Kita tidak bisa menghentikan pembentukan radikal bebas sepenuhnya — tapi kita bisa membersihkannya sebelum mencapai ambang batas yang berbahaya.</span>
+        <span class="en">* We can't stop free radical formation entirely — but we can clear them before they reach the dangerous threshold.</span>
+      </p>
+    </div>
+  </div><!-- /cell-section -->
+
+  <!-- BATTERY BRIDGE -->
+  <div class="solution-bridge fade-in">
+    <div class="battery-wrap">
+      <div class="battery-outer">
+        <div class="battery-tip"></div>
+        <div class="battery-body">
+          <div class="batt-segs">
+            <div class="batt-seg"></div><div class="batt-seg"></div>
+            <div class="batt-seg"></div><div class="batt-seg"></div>
+          </div>
+          <div class="battery-fill"></div>
+          <div class="batt-bolt">⚡</div>
+        </div>
+      </div>
+      <div class="batt-dots"><div class="bdot"></div><div class="bdot"></div><div class="bdot"></div></div>
+      <div class="batt-caption"><span class="id">Mengisi Ulang</span><span class="en">Recharging</span></div>
+    </div>
+    <div>
+      <div class="bridge-title">
+        <span class="id">Di sinilah <em>Tera P90 bekerja.</em></span>
+        <span class="en">This is where <em>Tera P90 works.</em></span>
+      </div>
+      <p class="bridge-body">
+        <span class="id">Sel yang diserang radikal bebas kehilangan energinya — seperti baterai yang hampir habis. <strong>PEMF dan Terahertz mengisi ulang sel-sel tersebut</strong>, mengaktifkan kembali komunikasi antar sel, menetralisir radikal bebas, dan memulihkan sirkulasi mikro yang tersumbat. Dari telapak kaki, melalui tulang dan pembuluh darah, hingga ke triliunan sel di seluruh tubuh — dalam 30 menit.</span>
+        <span class="en">Cells under free radical attack lose their energy — like a nearly dead battery. <strong>PEMF and Terahertz recharge these cells</strong>, reactivating cell-to-cell communication, neutralizing free radicals, and restoring blocked microcirculation. From the soles of the feet, through bones and blood vessels, to trillions of cells throughout the body — in 30 minutes.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ HOW IT WORKS ═════════════════════════ -->
+<section class="how" id="how">
+  <div class="how-header fade-in">
+    <span class="section-tag">
+      <span class="id">Cara Kerja</span>
+      <span class="en">How It Works</span>
+    </span>
+    <h2 class="section-title">
+      <span class="id">Bukan sekedar terapi kaki.<br>Ini <em>recharge seluruh tubuh.</em></span>
+      <span class="en">Not just foot therapy.<br>This is a <em>full-body recharge.</em></span>
+    </h2>
+    <p class="how-subtitle">
+      <span class="id">Gelombang PEMF dan Terahertz bekerja melalui jalur alami tubuh — tulang, pembuluh darah, dan sel — dalam sesi 30 menit.</span>
+      <span class="en">PEMF and Terahertz waves work through the body's natural pathways — bones, blood vessels, and cells — in a 30-minute session.</span>
+    </p>
+  </div>
+
+  <div class="how-steps">
+    <div class="step fade-in">
+      <div class="step-num">01</div>
+      <div>
+        <h3><span class="id">Masuk melalui Telapak Kaki</span><span class="en">Enters Through the Soles</span></h3>
+        <p><span class="id">Letakkan telapak kaki di atas platform. Gelombang mulai masuk melalui titik-titik akupresur di telapak kaki yang terhubung ke seluruh sistem tubuh.</span><span class="en">Place the soles of your feet on the platform. Waves begin entering through acupressure points on the soles connected to the entire body system.</span></p>
+        <div class="wave-badge"><div class="wave-dot"></div><span class="wave-text"><span class="id">TERAHERTZ · Penetrasi 3–5 cm di bawah kulit</span><span class="en">TERAHERTZ · 3–5 cm skin penetration</span></span></div>
+      </div>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">02</div>
+      <div>
+        <h3><span class="id">Merambat melalui Tulang</span><span class="en">Travels Through Bones</span></h3>
+        <p><span class="id">Fokus awal di tumit, perlahan naik ke atas melalui tulang. Penyakit yang berhubungan dengan tulang seperti osteoporosis dan pengapuran mendapat manfaat pertama.</span><span class="en">Initial focus at the heel, slowly rising through bones. Bone-related conditions like osteoporosis receive benefits first.</span></p>
+        <div class="wave-badge"><div class="wave-dot"></div><span class="wave-text"><span class="id">PEMF · 1 MHz pancaran energi tinggi</span><span class="en">PEMF · 1 MHz high-energy emission</span></span></div>
+      </div>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">03</div>
+      <div>
+        <h3><span class="id">Melewati Pembuluh Darah</span><span class="en">Through Blood Vessels</span></h3>
+        <p><span class="id">Jantung memompa darah melalui pembuluh besar, sedang, hingga terkecil. Terahertz membantu mikrosirkulasi yang tidak selalu dijangkau pompa jantung sendiri.</span><span class="en">The heart pumps blood through large, medium, and smallest vessels. Terahertz assists microcirculation not always reached by the heart alone.</span></p>
+        <div class="wave-badge"><div class="wave-dot"></div><span class="wave-text"><span class="id">TERAHERTZ · Resonansi 8–15μm = frekuensi sel manusia</span><span class="en">TERAHERTZ · 8–15μm resonance = human cell frequency</span></span></div>
+      </div>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">04</div>
+      <div>
+        <h3><span class="id">Men-recharge Triliunan Sel</span><span class="en">Recharging Trillions of Cells</span></h3>
+        <p><span class="id">PEMF dan Terahertz bekerja seperti charger untuk sel yang melemah — mengaktifkan kembali fungsi sel, mempercepat regenerasi, dan menetralisir radikal bebas.</span><span class="en">PEMF and Terahertz work like a charger for weakened cells — reactivating cell function, accelerating regeneration, and neutralizing free radicals.</span></p>
+        <div class="wave-badge"><div class="wave-dot"></div><span class="wave-text"><span class="id">PEMF · Interaksi sel ke sel · Rangsang imunitas</span><span class="en">PEMF · Cell-to-cell interaction · Immune stimulation</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TECHNOLOGY ═══════════════════════════ -->
+<section class="tech" id="tech">
+  <div class="tech-inner">
+    <div class="tech-header fade-in">
+      <span class="section-tag" style="color:var(--teal-mid)">
+        <span class="id">Teknologi Inti</span>
+        <span class="en">Core Technology</span>
+      </span>
+      <h2 class="section-title light">
+        <span class="id">Dua teknologi.<br>Satu tujuan: <em>aktifkan sel kembali.</em></span>
+        <span class="en">Two technologies.<br>One purpose: <em>reactivate your cells.</em></span>
+      </h2>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-card fade-in">
+        <span class="tech-tag">Teknologi 01</span>
+        <h3>PEMF</h3>
+        <p><span class="id">Pulsed Electromagnetic Field — Gelombang magnetoelektrik berpulsa 1 MHz yang merangsang interaksi sel ke sel, meningkatkan metabolisme dari dalam, dan mengaktifkan imunitas seluler. Dipancarkan melalui seluruh bagian tubuh.</span><span class="en">Pulsed Electromagnetic Field — 1 MHz pulsed magnetoelectric waves that stimulate cell-to-cell interaction, boost metabolism from within, and activate cellular immunity. Delivered throughout the entire body.</span></p>
+        <div class="tech-specs">
+          <span class="spec-chip">1 MHz</span>
+          <span class="spec-chip"><span class="id">Interaksi sel ke sel</span><span class="en">Cell-to-cell interaction</span></span>
+          <span class="spec-chip">FDA Approved</span>
+          <span class="spec-chip"><span class="id">Imunitas seluler</span><span class="en">Cellular immunity</span></span>
+        </div>
+      </div>
+
+      <div class="tech-card fade-in">
+        <span class="tech-tag">Teknologi 02</span>
+        <h3>Terahertz</h3>
+        <p><span class="id">Gelombang Terahertz pada rentang 8–15μm — dikenal sebagai "Sinar Kehidupan" karena beresonansi pada frekuensi yang sama dengan sel tubuh manusia (9μm). Penetrasi 3–5 cm di bawah kulit, meningkatkan mikrosirkulasi, aman dan non-ionisasi.</span><span class="en">Terahertz waves at 8–15μm range — known as "Life Light" because they resonate at the same frequency as human body cells (9μm). 3–5 cm skin penetration, improves microcirculation, safe and non-ionizing.</span></p>
+        <div class="tech-specs">
+          <span class="spec-chip">8–15 μm</span>
+          <span class="spec-chip"><span class="id">Resonansi sel manusia</span><span class="en">Human cell resonance</span></span>
+          <span class="spec-chip"><span class="id">Penetrasi 3–5 cm</span><span class="en">3–5 cm penetration</span></span>
+          <span class="spec-chip"><span class="id">Non-ionisasi · Aman</span><span class="en">Non-ionizing · Safe</span></span>
+        </div>
+      </div>
+
+      <div class="tech-proof fade-in">
+        <div class="proof-icon">🔬</div>
+        <div>
+          <div class="proof-title">
+            <span class="id">Didukung riset ilmiah internasional</span>
+            <span class="en">Backed by international scientific research</span>
+          </div>
+          <p class="proof-body">
+            <span class="id">Terapi PEMF telah disetujui FDA. Puluhan studi peer-reviewed dari Nature, PubMed, dan universitas medis terkemuka mendukung efektivitasnya untuk regenerasi jaringan, pengurangan nyeri kronis, perbaikan fungsi saraf, dan peningkatan sirkulasi darah. Teknologi Terahertz terdaftar sebagai "salah satu teknologi baru yang akan mengubah dunia" oleh pemerintah Amerika Serikat sejak 2004.</span>
+            <span class="en">PEMF therapy has been FDA approved. Dozens of peer-reviewed studies from Nature, PubMed, and leading medical universities support its effectiveness for tissue regeneration, chronic pain reduction, nerve function improvement, and blood circulation enhancement. Terahertz technology was listed as "one of the new technologies that will change the world" by the US government since 2004.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MID-PAGE CTA (~50% scroll) ══════════════════════════════════════════ -->
+<div class="mid-cta fade-in">
+  <div class="mid-cta-inner">
+    <div class="mid-cta-left">
+      <p class="mid-cta-label">
+        <span class="id">Sudah cukup tahu?</span>
+        <span class="en">Seen enough?</span>
+      </p>
+      <p class="mid-cta-text">
+        <span class="id">Tanya langsung via WhatsApp — tidak ada kewajiban beli.</span>
+        <span class="en">Ask us directly on WhatsApp — no obligation to buy.</span>
+      </p>
+    </div>
+    <a href="https://wa.me/62818828526" class="mid-cta-btn" target="_blank">
+      <span class="mid-cta-icon">💬</span>
+      <span class="id">Chat WhatsApp</span>
+      <span class="en">Chat WhatsApp</span>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ CONDITIONS (gabungan) ══════════════════════════════════════════════ -->
+<section class="conditions">
+  <div class="conditions-header fade-in">
+    <span class="section-tag">
+      <span class="id">Masalah yang Paling Sering Dibantu Tera P90</span>
+      <span class="en">Conditions Most Often Helped by Tera P90</span>
+    </span>
+    <h2 class="section-title">
+      <span class="id">Satu akar, <em>banyak kondisi.</em></span>
+      <span class="en">One root, <em>many conditions.</em></span>
+    </h2>
+    <p class="conditions-sub">
+      <span class="id">Radikal bebas menyerang sel di seluruh tubuh — itulah mengapa satu alat bisa membantu banyak kondisi sekaligus.</span>
+      <span class="en">Free radicals attack cells throughout the body — that's why one device can help many conditions at once.</span>
+    </p>
+  </div>
+  <div class="cond-grid">
+    <div class="cond-card fade-in">
+      <div class="cond-icon">🩸</div>
+      <h3>Diabetes</h3>
+      <p><span class="id">Sirkulasi ke pembuluh darah terkecil terhambat. Tera P90 bekerja langsung di akar — memperlancar mikrosirkulasi dan mengaktifkan kembali metabolisme sel.</span><span class="en">Circulation to the smallest blood vessels is impaired. Tera P90 works at the root — improving microcirculation and reactivating cell metabolism.</span></p>
+    </div>
+    <div class="cond-card fade-in">
+      <div class="cond-icon">🦴</div>
+      <h3><span class="id">Asam Urat & Nyeri Sendi</span><span class="en">Gout & Joint Pain</span></h3>
+      <p><span class="id">Gelombang masuk dari telapak kaki dan naik melalui tulang terlebih dulu. Kondisi sendi, osteoporosis, dan pengapuran merasakan manfaat di tahap awal.</span><span class="en">Waves enter through the feet and travel through bones first. Joint conditions, osteoporosis, and calcification feel benefits early.</span></p>
+    </div>
+    <div class="cond-card fade-in">
+      <div class="cond-icon">❤️</div>
+      <h3><span class="id">Darah Tinggi & Darah Kental</span><span class="en">Hypertension & Thick Blood</span></h3>
+      <p><span class="id">Tanda-tanda tersumbat: kebas, kram, kesemutan. Terahertz membantu melancarkan mikrosirkulasi yang tidak selalu dijangkau pompa jantung.</span><span class="en">Signs of blockage: numbness, cramps, tingling. Terahertz helps microcirculation that the heart pump doesn't always reach.</span></p>
+    </div>
+    <div class="cond-card fade-in">
+      <div class="cond-icon">🧠</div>
+      <h3>Stroke</h3>
+      <p><span class="id">Meningkatkan pengiriman oksigen ke otak, mendukung pemulihan jaringan saraf yang rusak akibat sumbatan pembuluh darah.</span><span class="en">Improves oxygen delivery to the brain, supports recovery of nerve tissue damaged by blocked blood vessels.</span></p>
+    </div>
+    <div class="cond-card fade-in">
+      <div class="cond-icon">🦵</div>
+      <h3><span class="id">Saraf Kejepit</span><span class="en">Pinched Nerve</span></h3>
+      <p><span class="id">Terapi non-invasif yang mendukung pemulihan jaringan saraf tertekan dan membantu mengurangi nyeri punggung bawah secara klinis.</span><span class="en">Non-invasive therapy supporting recovery of compressed nerve tissue and clinically helping reduce lower back pain.</span></p>
+    </div>
+    <div class="cond-card fade-in">
+      <div class="cond-icon">💪</div>
+      <h3><span class="id">Kolesterol & Metabolisme</span><span class="en">Cholesterol & Metabolism</span></h3>
+      <p><span class="id">Meningkatkan metabolisme tubuh, membantu proses detoksifikasi, dan memperbaiki keseimbangan energi sel dari dalam.</span><span class="en">Improves body metabolism, supports detoxification, and restores cellular energy balance from within.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TESTIMONIALS ══════════════════════════ -->
+<section class="testi" id="testimonials">
+  <div class="testi-inner">
+    <div class="testi-header fade-in">
+      <span class="section-tag" style="color:var(--teal-mid)">
+        <span class="id">Cerita Nyata</span>
+        <span class="en">Real Stories</span>
+      </span>
+      <h2 class="section-title light">
+        <span class="id">Bukan klaim.<br>Ini <em>orang yang dikenal.</em></span>
+        <span class="en">Not a claim.<br>These are <em>people we know.</em></span>
+      </h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-in">
+        <div class="testi-condition">Diabetes</div>
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text id">Gula saya turun dari 280 ke 140 dalam 3 minggu pakai rutin. Saya tidak percaya sampai lihat sendiri hasil labnya.</p>
+        <p class="testi-text en" style="display:none">My blood sugar dropped from 280 to 140 in 3 weeks of regular use. I couldn't believe it until I saw the lab results myself.</p>
+        <div class="testi-name"><span class="id">Bapak Suharto</span><span class="en">Mr. Suharto</span></div>
+        <div class="testi-detail"><span class="id">67 tahun · Surabaya</span><span class="en">67 years old · Surabaya</span></div>
+        <button class="testi-btn" onclick="openTesti(0)"><span class="id">Baca Cerita Lengkap →</span><span class="en">Read Full Story →</span></button>
+      </div>
+      <div class="testi-card fade-in">
+        <div class="testi-condition"><span class="id">Asam Urat</span><span class="en">Gout</span></div>
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text id">5 tahun tidak bisa jalan jauh. Setelah 2 bulan, saya bisa naik tangga lagi tanpa pegang railing. Terasa gelombangnya naik dari kaki ke atas.</p>
+        <p class="testi-text en" style="display:none">5 years unable to walk far. After 2 months, I can climb stairs again without holding the railing. You can feel the waves rising from the feet upward.</p>
+        <div class="testi-name"><span class="id">Ibu Rahayu</span><span class="en">Mrs. Rahayu</span></div>
+        <div class="testi-detail"><span class="id">59 tahun · Bandung</span><span class="en">59 years old · Bandung</span></div>
+        <button class="testi-btn" onclick="openTesti(1)"><span class="id">Baca Cerita Lengkap →</span><span class="en">Read Full Story →</span></button>
+      </div>
+      <div class="testi-card fade-in">
+        <div class="testi-condition"><span class="id">Stroke Ringan</span><span class="en">Mild Stroke</span></div>
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text id">Fisioterapi jauh dan mahal. Dengan P90, saya terapi sendiri di rumah dua kali sehari. Tangan kiri yang lemas mulai terasa membaik di minggu ketiga.</p>
+        <p class="testi-text en" style="display:none">Physiotherapy was far and expensive. With P90, I do therapy at home twice a day. The weak left hand started improving in the third week.</p>
+        <div class="testi-name"><span class="id">Pak Wibowo</span><span class="en">Mr. Wibowo</span></div>
+        <div class="testi-detail"><span class="id">72 tahun · Jakarta</span><span class="en">72 years old · Jakarta</span></div>
+        <button class="testi-btn" onclick="openTesti(2)"><span class="id">Baca Cerita Lengkap →</span><span class="en">Read Full Story →</span></button>
+      </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="testi-modal" id="testiModal" onclick="if(event.target===this)closeTesti()">
+      <div class="testi-modal-box">
+        <button class="modal-close" onclick="closeTesti()">✕</button>
+        <div class="modal-condition" id="mCondition"></div>
+        <div class="modal-quote">"</div>
+        <p class="modal-text" id="mText"></p>
+        <div class="modal-person">
+          <div class="modal-avatar" id="mAvatar"></div>
+          <div>
+            <div class="modal-name" id="mName"></div>
+            <div class="modal-info" id="mInfo"></div>
+          </div>
+        </div>
+        <div class="modal-story" id="mStory"></div>
+        <a href="https://wa.me/62818828526" class="modal-cta" target="_blank">
+          <span class="id">Tanya Lebih Lanjut via WhatsApp →</span>
+          <span class="en">Ask More via WhatsApp →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PRODUCT ══════════════════════════════ -->
+<section class="product" id="product">
+  <div class="product-box fade-in">
+    <span class="product-badge">
+      <span class="id">Tersedia untuk pengiriman ke seluruh Indonesia</span>
+      <span class="en">Available for delivery across Indonesia</span>
+    </span>
+    <div class="product-name">Tera P90</div>
+    <div class="product-tagline">
+      <span class="id">Alat Terapi PEMF + Terahertz · OlyLife</span>
+      <span class="en">PEMF + Terahertz Therapy Device · OlyLife</span>
+    </div>
+
+    <div class="price-block">
+      <div>
+        <div class="price-idr-label">
+          <span class="id">Harga Resmi (termasuk PPN 11%)</span>
+          <span class="en">Official Price (incl. 11% VAT)</span>
+        </div>
+        <div class="price-idr">Rp 16.650.000</div>
+        <div class="price-usd">≈ USD 1.000 <span style="font-size:11px;color:var(--muted);">(kurs fix Rp 15.000/USD)</span></div>
+        <div class="price-ppn">
+          <span class="id">Harga sebelum PPN: Rp 15.000.000</span>
+          <span class="en">Pre-tax price: Rp 15,000,000</span>
+        </div>
+      </div>
+      <div class="price-note">
+        <span class="id">Kurs ditetapkan OlyLife sebesar Rp 15.000 per USD untuk seluruh produk yang dijual di Indonesia. Harga ini berlaku seragam — tidak ada diskon atau negosiasi harga.</span>
+        <span class="en">OlyLife sets a fixed exchange rate of Rp 15,000 per USD for all products sold in Indonesia. This price is uniform — no discounts or price negotiation.</span>
+      </div>
+    </div>
+
+    <ul class="feature-list">
+      <li><span class="id">Teknologi PEMF 1 MHz</span><span class="en">1 MHz PEMF Technology</span></li>
+      <li><span class="id">Teknologi Terahertz 8–15μm</span><span class="en">8–15μm Terahertz Technology</span></li>
+      <li><span class="id">Sesi terapi 30 menit</span><span class="en">30-minute therapy sessions</span></li>
+      <li><span class="id">Garansi resmi 1 tahun</span><span class="en">1-year official warranty</span></li>
+      <li><span class="id">Penggunaan mandiri di rumah</span><span class="en">Independent home use</span></li>
+      <li><span class="id">Buku panduan + support WhatsApp</span><span class="en">User guide + WhatsApp support</span></li>
+      <li><span class="id">Produk resmi PT. OlyLife International</span><span class="en">Official PT. OlyLife International product</span></li>
+      <li><span class="id">Pembayaran via Payment Link resmi</span><span class="en">Payment via official Payment Link</span></li>
+    </ul>
+
+    <a href="https://wa.me/62818828526" class="btn-order" target="_blank">
+      <span class="id">Pesan via WhatsApp</span>
+      <span class="en">Order via WhatsApp</span>
+    </a>
+    <p class="order-note">
+      <span class="id">✦ Pembayaran 100% aman melalui Payment Link resmi OlyLife · Bukan marketplace</span>
+      <span class="en">✦ 100% secure payment via official OlyLife Payment Link · Not a marketplace</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ USAGE GUIDE ══════════════════════════ -->
+<section class="usage">
+  <div class="usage-inner">
+    <div class="usage-header fade-in">
+      <span class="section-tag" style="color:var(--teal-mid)">
+        <span class="id">Cara Pakai</span>
+        <span class="en">How to Use</span>
+      </span>
+      <h2 class="section-title light">
+        <span class="id">Sederhana. <em>Konsisten. Efektif.</em></span>
+        <span class="en">Simple. <em>Consistent. Effective.</em></span>
+      </h2>
+    </div>
+    <div class="usage-grid">
+      <div class="usage-step fade-in">
+        <div class="step-circle">1</div>
+        <div>
+          <h4><span class="id">Minum air sebelum dan setelah terapi</span><span class="en">Drink water before and after therapy</span></h4>
+          <p><span class="id">Hidrasi membantu konduksi gelombang dan proses detoksifikasi sel.</span><span class="en">Hydration helps wave conduction and cell detoxification process.</span></p>
+        </div>
+      </div>
+      <div class="usage-step fade-in">
+        <div class="step-circle">2</div>
+        <div>
+          <h4><span class="id">Duduk, injak kedua plat</span><span class="en">Sit down, place both feet on plates</span></h4>
+          <p><span class="id">Posisi duduk santai, telapak kaki penuh di atas plat. Jangan angkat atau geser kaki selama terapi.</span><span class="en">Relaxed sitting position, full soles on the plates. Don't lift or shift feet during therapy.</span></p>
+        </div>
+      </div>
+      <div class="usage-step fade-in">
+        <div class="step-circle">3</div>
+        <div>
+          <h4><span class="id">30 menit, 2x sehari</span><span class="en">30 minutes, twice daily</span></h4>
+          <p><span class="id">Jarak antar sesi minimal 6 jam. Atur intensitas gelombang sesuai kondisi tubuh via remote.</span><span class="en">Minimum 6 hours between sessions. Adjust wave intensity per your body condition via remote.</span></p>
+        </div>
+      </div>
+      <div class="usage-step fade-in">
+        <div class="step-circle">4</div>
+        <div>
+          <h4><span class="id">Pakai sandal setelah selesai</span><span class="en">Wear sandals after finishing</span></h4>
+          <p><span class="id">Jangan langsung pijak lantai/keramik. Tunggu minimal 2 jam sebelum mandi.</span><span class="en">Don't step directly on floor/tiles. Wait at least 2 hours before showering.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="caution-box fade-in">
+      <div class="caution-title">
+        <span class="id">Kontraindikasi — Tidak disarankan untuk:</span>
+        <span class="en">Contraindications — Not recommended for:</span>
+      </div>
+      <div class="caution-list">
+        <span class="caution-chip"><span class="id">Alat pacu jantung</span><span class="en">Pacemaker</span></span>
+        <span class="caution-chip"><span class="id">Ibu hamil</span><span class="en">Pregnant women</span></span>
+        <span class="caution-chip"><span class="id">Sedang demam tinggi</span><span class="en">High fever</span></span>
+        <span class="caution-chip"><span class="id">Pen logam di bawah lutut</span><span class="en">Metal pin below knee</span></span>
+        <span class="caution-chip"><span class="id">Menstruasi</span><span class="en">Menstruation</span></span>
+        <span class="caution-chip"><span class="id">Luka operasi belum kering</span><span class="en">Post-op wound not healed</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FAQ ══════════════════════════════════ -->
+<section class="faq">
+  <div class="faq-inner">
+    <h2 class="section-title light fade-in" style="margin-bottom:48px;">
+      <span class="id">Pertanyaan yang sering muncul.</span>
+      <span class="en">Frequently asked questions.</span>
+    </h2>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="id">Apa bedanya PEMF dengan Terahertz? Kenapa harus keduanya?</span>
+        <span class="en">What's the difference between PEMF and Terahertz? Why both?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span class="id">PEMF bekerja di level 1 MHz untuk merangsang interaksi sel ke sel dan imunitas. Terahertz bekerja di 8–15μm yang beresonansi langsung dengan frekuensi sel tubuh manusia. Kombinasinya menciptakan efek sinergis — PEMF mengaktifkan sel secara elektromagnetik, Terahertz menetralisir radikal bebas dan memperlancar mikrosirkulasi.</span>
+        <span class="en">PEMF works at 1 MHz to stimulate cell-to-cell interaction and immunity. Terahertz works at 8–15μm which directly resonates with human body cell frequency. The combination creates a synergistic effect — PEMF activates cells electromagnetically, Terahertz neutralizes free radicals and improves microcirculation.</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="id">Berapa lama sampai terasa hasilnya?</span>
+        <span class="en">How long until results are felt?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span class="id">Banyak pengguna mulai merasakan perbedaan setelah 1–2 minggu pemakaian rutin 2x sehari. Hasil optimal umumnya terlihat di minggu 4–8. Konsistensi adalah kuncinya — tubuh butuh waktu untuk membangun kembali sinyal selnya.</span>
+        <span class="en">Many users start feeling a difference after 1–2 weeks of regular twice-daily use. Optimal results are generally seen at weeks 4–8. Consistency is key — the body needs time to rebuild its cellular signals.</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="id">Apakah ini bisa menggantikan obat dokter?</span>
+        <span class="en">Can this replace doctor's medication?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span class="id">Tera P90 adalah alat terapi pendamping, bukan pengganti obat. Ia bekerja di level sel untuk mendukung kemampuan penyembuhan intrinsik tubuh. Banyak pengguna melaporkan dosis obatnya berkurang seiring waktu — tapi keputusan itu tetap ada di tangan dokter.</span>
+        <span class="en">Tera P90 is a complementary therapy device, not a medication replacement. It works at a cellular level to support the body's intrinsic healing ability. Many users report reduced medication dosages over time — but that decision remains with the doctor.</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="id">Kenapa tidak beli dari marketplace saja? Lebih murah di sana.</span>
+        <span class="en">Why not buy from a marketplace? It's cheaper there.</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span class="id">Produk OlyLife di marketplace tidak dapat dijamin keaslian dan kondisinya. Risiko nyata: produk palsu atau refurbished, tanpa garansi resmi, tanpa panduan penggunaan yang benar, dan tanpa support setelah pembelian. Harga yang lebih murah di marketplace seringkali bukan produk yang sama. Beli dari distributor resmi untuk keamanan dan ketenangan pikiran kamu.</span>
+        <span class="en">OlyLife products on marketplaces cannot be guaranteed for authenticity or condition. Real risks: counterfeit or refurbished products, no official warranty, no proper usage guide, and no post-purchase support. Lower marketplace prices often mean it's not the same product. Buy from an authorized distributor for your safety and peace of mind.</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="id">Bagaimana cara pemesanan dan pembayaran?</span>
+        <span class="en">How do I order and pay?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span class="id">Chat WhatsApp kami, konfirmasi pesanan dan alamat pengiriman. Pembayaran dilakukan melalui Payment Link resmi OlyLife — aman dan terverifikasi. Produk dikirim langsung dengan garansi distributor resmi.</span>
+        <span class="en">Chat us on WhatsApp, confirm your order and shipping address. Payment is made through the official OlyLife Payment Link — secure and verified. Product ships directly with official distributor warranty.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CLOSING ═══════════════════════════════ -->
+<section class="closing">
+  <span class="closing-eyebrow">
+    <span class="id">OlyLife Tera P90</span>
+    <span class="en">OlyLife Tera P90</span>
+  </span>
+  <h2 class="closing-title fade-in">
+    <span class="id">Tubuhmu sudah<br>lama menunggu<br>untuk <em>pulih.</em></span>
+    <span class="en">Your body has<br>been waiting<br>to <em>heal.</em></span>
+  </h2>
+  <p class="closing-sub fade-in">
+    <span class="id">Setiap hari tanpa terapi adalah hari di mana sel-sel tubuhmu tidak mendapat sinyal yang dibutuhkan.</span>
+    <span class="en">Every day without therapy is a day your body cells don't receive the signals they need.</span>
+  </p>
+  <a href="https://wa.me/62818828526" class="closing-cta fade-in" target="_blank">
+    <span class="id">Chat WhatsApp Sekarang</span>
+    <span class="en">Chat on WhatsApp Now</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2026 OlyLife Fajar · <span class="id">Independent Distributor Resmi</span><span class="en">Independent Authorized Distributor</span> · Tamanto Fajar · <a href="mailto:tamantofajarokto@gmail.com">tamantofajarokto@gmail.com</a></p>
+</footer>
+
+
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const ans = item.querySelector('.faq-a');
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+    if (!isOpen) { ans.classList.add('open'); item.classList.add('active'); }
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // ── META PIXEL EVENT TRACKING ──────────────────────────────────────────
+  // Track semua tombol WhatsApp → event Contact
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      fbq('track', 'Contact', {
+        content_name: 'WhatsApp OlyLife Fajar',
+        content_category: 'Tera P90'
+      });
+    });
+  });
+
+  // Track tombol "Lihat Produk" di hero → event ViewContent
+  document.querySelectorAll('a[href="#product"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      fbq('track', 'ViewContent', {
+        content_name: 'Tera P90',
+        content_category: 'Health Therapy Device',
+        value: 16650000,
+        currency: 'IDR'
+      });
+    });
+  });
+
+  // Track buka modal testimoni → event Lead (sinyal minat tinggi)
+  var origOpenTesti = openTesti;
+  function openTesti(i) {
+    origOpenTesti(i);
+    var names = ['Bapak Suharto', 'Ibu Rahayu', 'Pak Wibowo'];
+    fbq('track', 'Lead', {
+      content_name: 'Testimoni ' + names[i],
+      content_category: 'Tera P90'
+    });
+  }
+
+  // Track scroll 50% → event Search (sinyal engagement dalam)
+  var fired50 = false;
+  window.addEventListener('scroll', function() {
+    if (fired50) return;
+    var pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    if (pct >= 50) {
+      fired50 = true;
+      fbq('trackCustom', 'ScrollDepth50', { content_name: 'Tera P90 Landing Page' });
+    }
+  }, { passive: true });
+  const lang = () => document.body.classList.contains('lang-en') ? 'en' : 'id';
+  const testiData = [
+    {
+      condition:{id:'Diabetes',en:'Diabetes'}, avatar:'👴', name:{id:'Bapak Suharto',en:'Mr. Suharto'},
+      info:{id:'67 tahun · Surabaya · Pensiunan PNS',en:'67 years old · Surabaya · Retired civil servant'},
+      quote:{id:'Gula saya turun dari 280 ke 140 dalam 3 minggu pakai rutin. Saya tidak percaya sampai lihat sendiri hasil labnya.',en:'My blood sugar dropped from 280 to 140 in 3 weeks of regular use. I couldn\'t believe it until I saw the lab results myself.'},
+      story:{
+        id:'<p>Saya sudah menderita diabetes selama 12 tahun. Berbagai obat sudah dicoba, pola makan sudah dijaga, tapi gula darah tetap naik turun tidak stabil.</p><p>Anak saya yang memperkenalkan Tera P90. Saya skeptis awalnya — sudah terlalu sering kecewa. Tapi setelah 3 minggu dipakai rutin dua kali sehari, hasil lab menunjukkan perubahan nyata: gula puasa yang biasanya 280 turun ke 140.</p><p>Saya tidak menghentikan obat dokter — tapi dokter saya sendiri yang heran dan mulai mengurangi dosisnya.</p>',
+        en:'<p>I had been living with diabetes for 12 years. I\'d tried various medications and watched my diet carefully, but blood sugar remained unstable.</p><p>My child introduced me to Tera P90. I was skeptical — too many disappointments. But after 3 weeks of twice-daily use, lab results showed a real change: fasting blood sugar that used to be 280 came down to 140.</p><p>I haven\'t stopped my doctor\'s medication — but my doctor himself was surprised and began reducing my dosage.</p>'
+      }
+    },
+    {
+      condition:{id:'Asam Urat',en:'Gout'}, avatar:'👵', name:{id:'Ibu Rahayu',en:'Mrs. Rahayu'},
+      info:{id:'59 tahun · Bandung · Ibu rumah tangga',en:'59 years old · Bandung · Homemaker'},
+      quote:{id:'5 tahun tidak bisa jalan jauh. Setelah 2 bulan, saya bisa naik tangga lagi tanpa pegang railing.',en:'5 years unable to walk far. After 2 months, I can climb stairs again without holding the railing.'},
+      story:{
+        id:'<p>Asam urat saya sudah parah sejak 5 tahun lalu. Pergelangan kaki sering bengkak, setiap langkah terasa berat. Saya sampai menghindari keluar rumah karena malu dan kesakitan.</p><p>Minggu pertama pakai P90, kaki saya terasa hangat dan ada sensasi seperti mengalir dari bawah ke atas. Bulan kedua, saya bisa jalan ke warung sendiri.</p><p>Yang bikin saya menangis — saya bisa naik tangga ke kamar anak saya di lantai dua tanpa pegangan. Sudah 5 tahun tidak bisa melakukan itu.</p>',
+        en:'<p>My gout had been severe for 5 years. My ankles would swell often, and every step felt heavy. I started avoiding going out because of the pain and embarrassment.</p><p>The first week using P90, I felt warmth and a flowing sensation from the feet upward. By the second month, I could walk to the shop alone.</p><p>What made me cry — I climbed the stairs to my child\'s room on the second floor without holding anything. I hadn\'t been able to do that in 5 years.</p>'
+      }
+    },
+    {
+      condition:{id:'Stroke Ringan',en:'Mild Stroke'}, avatar:'👴', name:{id:'Pak Wibowo',en:'Mr. Wibowo'},
+      info:{id:'72 tahun · Jakarta · Mantan pengusaha',en:'72 years old · Jakarta · Former businessman'},
+      quote:{id:'Fisioterapi jauh dan mahal. Dengan P90, saya terapi sendiri di rumah dua kali sehari.',en:'Physiotherapy was far and expensive. With P90, I do therapy at home twice a day.'},
+      story:{
+        id:'<p>Saya terkena stroke ringan 18 bulan lalu. Tangan kiri melemah, bicara sedikit pelo, dan saya harus berhenti mengelola bisnis saya.</p><p>Fisioterapi membantu, tapi jaraknya jauh dan biayanya besar. Anak saya membelikan Tera P90 supaya saya bisa terapi di rumah sendiri.</p><p>Minggu ketiga, tangan kiri saya mulai terasa ada "arus" kembali. Sekarang setelah 4 bulan, saya sudah bisa menulis lagi — pelan-pelan — dan bicara lebih jelas. Dokter bilang kemajuannya di atas ekspektasi.</p>',
+        en:'<p>I had a mild stroke 18 months ago. My left hand weakened, speech became slightly slurred, and I had to stop managing my business.</p><p>Physiotherapy helped, but it was far and expensive. My child bought a Tera P90 so I could do therapy at home.</p><p>By the third week, my left hand started feeling a current return. Now after 4 months, I can write again — slowly — and speak more clearly. My doctor says progress is above expectations.</p>'
+      }
+    }
+  ];
+
+  function openTesti(i) {
+    const d = testiData[i], l = lang();
+    document.getElementById('mCondition').textContent = d.condition[l];
+    document.getElementById('mText').textContent = d.quote[l];
+    document.getElementById('mAvatar').textContent = d.avatar;
+    document.getElementById('mName').textContent = typeof d.name === 'object' ? d.name[l] : d.name;
+    document.getElementById('mInfo').textContent = d.info[l];
+    document.getElementById('mStory').innerHTML = d.story[l];
+    document.getElementById('testiModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeTesti() {
+    document.getElementById('testiModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
+</body>
+</html>
